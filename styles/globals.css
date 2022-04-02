@@ -14,3 +14,10 @@ a {
 * {
   box-sizing: border-box;
 }
+
+:root {
+  --paper: #d7d0cb;
+  --gray-1: #cbc9c6;
+  --gray-2: #cec8c7;
+  --gray-3: #c7c5c3;
+}

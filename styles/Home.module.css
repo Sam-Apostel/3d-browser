@@ -1,32 +1,76 @@
 .main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	min-height: 100vh;
+	padding: 4rem 0;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	--dot-spacing: 30;
+	--dot-size: 2.5;
+
+	--dot-gradient-pos: calc((var(--dot-size) / var(--dot-spacing)) * 100%);
+	--dot-background-size: calc(var(--dot-spacing) * 1px);
+
+	--main-grid-width: 2px;
+	--minor-grid-width: 1px;
+	--main-grid-spacing: 6;
+	--minor-grid-subdivisions: 1;
+
+
+	background-position:
+		0 0,
+		var(--main-grid-width),
+		0 var(--main-grid-width),
+		var(--minor-grid-width),
+		0 var(--minor-grid-width);
+	background-image:
+		radial-gradient(var(--gray-1) var(--dot-gradient-pos), transparent var(--dot-gradient-pos)),
+		linear-gradient(-90deg, var(--gray-3) var(--main-grid-width), transparent var(--main-grid-width)),
+		linear-gradient(0deg, var(--gray-3) var(--main-grid-width), transparent var(--main-grid-width)),
+		linear-gradient(-90deg, var(--gray-2) var(--minor-grid-width), transparent var(--minor-grid-width)),
+		linear-gradient(0deg, var(--gray-2) var(--minor-grid-width), transparent var(--minor-grid-width));
+	background-color: var(--paper);
+	background-size:
+		var(--dot-background-size) var(--dot-background-size),
+		calc(var(--dot-spacing) * var(--main-grid-spacing) * 1px) auto,
+		auto calc(var(--dot-spacing) * var(--main-grid-spacing) * 1px),
+		calc(var(--dot-spacing) * var(--main-grid-spacing) / (var(--minor-grid-subdivisions) + 1) * 1px) auto,
+		auto calc(var(--dot-spacing) * var(--main-grid-spacing) / (var(--minor-grid-subdivisions) + 1) * 1px);
+	height: 100%;
+	width: 100%;
 }
 
 .footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	flex: 1;
+	padding: 2rem 0;
+	border-top: 1px solid #eaeaea;
+	justify-content: center;
+	align-items: center;
 }
 
 .footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-grow: 1;
 }
 
 .title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-  text-align: center;
+	color: var(--paper);
+	margin: 0;
+	line-height: 1.15;
+	font-size: 4rem;
+	text-align: center;
+	text-shadow:
+			-1px 1px 0px #555,
+			-2px 2px 0px #555,
+			-3px 3px 0px #555,
+			-4px 4px 0px #555,
+			-5px 5px 0px #555,
+			-6px 6px 0px #555,
+			-7px 7px 0px #555,
+			1px -1px 5px #e5deda;
 }
