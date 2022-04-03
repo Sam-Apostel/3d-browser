@@ -62,15 +62,42 @@
 	color: var(--paper);
 	margin: 0;
 	line-height: 1.15;
-	font-size: 4rem;
+	font-size: 15rem;
 	text-align: center;
+	--shadow-color: rgba(159, 159, 159, 0.05);
+	--side-color: #a29e94;
 	text-shadow:
-			-1px 1px 0px #555,
-			-2px 2px 0px #555,
-			-3px 3px 0px #555,
-			-4px 4px 0px #555,
-			-5px 5px 0px #555,
-			-6px 6px 0px #555,
-			-7px 7px 0px #555,
-			1px -1px 5px #e5deda;
+			-1px 0 1px var(--side-color),
+			-2px 0 1px var(--side-color),
+			-3px 0 1px var(--side-color),
+			-4px 0 1px var(--side-color),
+			-5px 0 1px var(--side-color),
+			-6px 0 1px var(--side-color),
+			-7px 0 1px var(--side-color),
+			-8px 0 1px var(--side-color),
+			-9px 0 1px var(--side-color),
+
+			10px -10px 15px #e5deda88,
+
+			-9px 1px 0 var(--shadow-color),
+			-10px 2px 0 var(--shadow-color),
+			-11px 3px 0 var(--shadow-color),
+			-12px 4px 0 var(--shadow-color),
+			-13px 5px 0 var(--shadow-color),
+			-14px 6px 0 var(--shadow-color),
+			-15px 7px 0 var(--shadow-color),
+			-16px 8px 0 var(--shadow-color),
+			-17px 9px 0 var(--shadow-color),
+			-18px 10px 0 var(--shadow-color),
+			-19px 11px 0 var(--shadow-color),
+			-20px 12px 0 var(--shadow-color),
+			-21px 13px 0 var(--shadow-color),
+			-22px 14px 0 var(--shadow-color),
+			-23px 15px 0 var(--shadow-color),
+			-24px 16px 0 var(--shadow-color),
+			-25px 17px 0 var(--shadow-color),
+			-26px 18px 0 var(--shadow-color),
+			-27px 19px 0 var(--shadow-color),
+			-28px 20px 0 var(--shadow-color),
+			-29px 21px 0 var(--shadow-color);
 }
