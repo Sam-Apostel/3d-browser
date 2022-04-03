@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+
 html,
 body {
   padding: 0;
@@ -20,4 +23,6 @@ a {
   --gray-1: #cbc9c6;
   --gray-2: #cec8c7;
   --gray-3: #c7c5c3;
+  --gray-4: #777474;
+  --gray-5: #2c2c2c;
 }

@@ -1,11 +1,8 @@
-.main {
-	min-height: 100vh;
-	padding: 4rem 0;
-	flex: 1;
+.container {
+	min-height: calc(100vh + 6rem);
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	padding-inline: 2rem;
 
 	--dot-spacing: 30;
 	--dot-size: 2.5;
@@ -20,35 +17,49 @@
 
 
 	background-position:
-		0 0,
-		var(--main-grid-width),
-		0 var(--main-grid-width),
-		var(--minor-grid-width),
-		0 var(--minor-grid-width);
+			0 0,
+			var(--main-grid-width),
+			0 var(--main-grid-width),
+			var(--minor-grid-width),
+			0 var(--minor-grid-width);
 	background-image:
-		radial-gradient(var(--gray-1) var(--dot-gradient-pos), transparent var(--dot-gradient-pos)),
-		linear-gradient(-90deg, var(--gray-3) var(--main-grid-width), transparent var(--main-grid-width)),
-		linear-gradient(0deg, var(--gray-3) var(--main-grid-width), transparent var(--main-grid-width)),
-		linear-gradient(-90deg, var(--gray-2) var(--minor-grid-width), transparent var(--minor-grid-width)),
-		linear-gradient(0deg, var(--gray-2) var(--minor-grid-width), transparent var(--minor-grid-width));
+			radial-gradient(var(--gray-1) var(--dot-gradient-pos), transparent var(--dot-gradient-pos)),
+			linear-gradient(-90deg, var(--gray-3) var(--main-grid-width), transparent var(--main-grid-width)),
+			linear-gradient(0deg, var(--gray-3) var(--main-grid-width), transparent var(--main-grid-width)),
+			linear-gradient(-90deg, var(--gray-2) var(--minor-grid-width), transparent var(--minor-grid-width)),
+			linear-gradient(0deg, var(--gray-2) var(--minor-grid-width), transparent var(--minor-grid-width));
 	background-color: var(--paper);
 	background-size:
-		var(--dot-background-size) var(--dot-background-size),
-		calc(var(--dot-spacing) * var(--main-grid-spacing) * 1px) auto,
-		auto calc(var(--dot-spacing) * var(--main-grid-spacing) * 1px),
-		calc(var(--dot-spacing) * var(--main-grid-spacing) / (var(--minor-grid-subdivisions) + 1) * 1px) auto,
-		auto calc(var(--dot-spacing) * var(--main-grid-spacing) / (var(--minor-grid-subdivisions) + 1) * 1px);
-	height: 100%;
-	width: 100%;
+			var(--dot-background-size) var(--dot-background-size),
+			calc(var(--dot-spacing) * var(--main-grid-spacing) * 1px) auto,
+			auto calc(var(--dot-spacing) * var(--main-grid-spacing) * 1px),
+			calc(var(--dot-spacing) * var(--main-grid-spacing) / (var(--minor-grid-subdivisions) + 1) * 1px) auto,
+			auto calc(var(--dot-spacing) * var(--main-grid-spacing) / (var(--minor-grid-subdivisions) + 1) * 1px);
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: calc(var(--dot-spacing) * var( --main-grid-spacing) * 1px);
+	margin-inline: auto;
+	margin-bottom: auto;
+	max-height: max-content;
+	position: relative;
+	padding: 5rem;
+}
+.main * {
+ z-index: 1;
 }
 
 .footer {
 	display: flex;
-	flex: 1;
+	justify-self: end;
 	padding: 2rem 0;
-	border-top: 1px solid #eaeaea;
 	justify-content: center;
 	align-items: center;
+	flex: 0 0 6rem;
 }
 
 .footer a {
@@ -59,45 +70,94 @@
 }
 
 .title {
+	font-family: 'Rubik', sans-serif;
+	font-weight: 500;
 	color: var(--paper);
 	margin: 0;
-	line-height: 1.15;
-	font-size: 15rem;
-	text-align: center;
+	padding: 0;
+	font-size: 19rem;
+	line-height: .8;
 	--shadow-color: rgba(159, 159, 159, 0.05);
 	--side-color: #a29e94;
 	text-shadow:
-			-1px 0 1px var(--side-color),
-			-2px 0 1px var(--side-color),
-			-3px 0 1px var(--side-color),
-			-4px 0 1px var(--side-color),
-			-5px 0 1px var(--side-color),
-			-6px 0 1px var(--side-color),
-			-7px 0 1px var(--side-color),
-			-8px 0 1px var(--side-color),
-			-9px 0 1px var(--side-color),
+		-1px 0 1px var(--side-color),
+		-2px 0 1px var(--side-color),
+		-3px 0 1px var(--side-color),
+		-4px 0 1px var(--side-color),
+		-5px 0 1px var(--side-color),
+		-6px 0 1px var(--side-color),
+		-7px 0 1px var(--side-color),
+		-8px 0 1px var(--side-color),
+		-9px 0 1px var(--side-color),
 
-			10px -10px 15px #e5deda88,
+		10px -10px 15px #e5deda88,
 
-			-9px 1px 0 var(--shadow-color),
-			-10px 2px 0 var(--shadow-color),
-			-11px 3px 0 var(--shadow-color),
-			-12px 4px 0 var(--shadow-color),
-			-13px 5px 0 var(--shadow-color),
-			-14px 6px 0 var(--shadow-color),
-			-15px 7px 0 var(--shadow-color),
-			-16px 8px 0 var(--shadow-color),
-			-17px 9px 0 var(--shadow-color),
-			-18px 10px 0 var(--shadow-color),
-			-19px 11px 0 var(--shadow-color),
-			-20px 12px 0 var(--shadow-color),
-			-21px 13px 0 var(--shadow-color),
-			-22px 14px 0 var(--shadow-color),
-			-23px 15px 0 var(--shadow-color),
-			-24px 16px 0 var(--shadow-color),
-			-25px 17px 0 var(--shadow-color),
-			-26px 18px 0 var(--shadow-color),
-			-27px 19px 0 var(--shadow-color),
-			-28px 20px 0 var(--shadow-color),
-			-29px 21px 0 var(--shadow-color);
+		-9px 0 0 var(--shadow-color),
+		-10px 1px  0 var(--shadow-color),
+		-11px 2px 0 var(--shadow-color),
+		-12px 3px 0 var(--shadow-color),
+		-13px 4px 0 var(--shadow-color),
+		-14px 5px 0 var(--shadow-color),
+		-15px 6px 0 var(--shadow-color),
+		-16px 7px 0 var(--shadow-color),
+		-17px 8px 0 var(--shadow-color),
+		-18px 9px 0 var(--shadow-color),
+		-19px 10px 0 var(--shadow-color),
+		-20px 11px 0 var(--shadow-color),
+		-21px 12px 0 var(--shadow-color),
+		-22px 13px 0 var(--shadow-color),
+		-23px 14px 0 var(--shadow-color),
+		-24px 15px 0 var(--shadow-color),
+		-25px 16px 1px var(--shadow-color),
+		-26px 17px 2px var(--shadow-color),
+		-27px 18px 3px var(--shadow-color),
+		-28px 19px 4px var(--shadow-color),
+		-29px 20px 5px var(--shadow-color);
+}
+
+.cross, .line {
+	width: calc(var(--dot-spacing) * 1px);
+	height: calc(var(--dot-spacing) * 1px);
+	z-index: 0;
+}
+
+
+.cross::before, .cross::after, .line::before {
+	content: '';
+	position: absolute;
+	background: var(--gray-5);
+}
+
+.cross::before {
+	width: 3px;
+	height: 100%;
+	right: calc(50% - 3px / 2);
+}
+
+.cross::after, .line::before {
+	width: 100%;
+	height: 3px;
+	top: calc(50% - 3px / 2);
+}
+
+.topRight {
+	position: absolute;
+	top: calc(var(--dot-spacing) * -.5px);
+	right: calc(var(--dot-spacing) * -.5px);
+}
+.topLeft {
+	position: absolute;
+	top: calc(var(--dot-spacing) * -.5px);
+	left: calc(var(--dot-spacing) * -.5px);
+}
+
+.center {
+	position: absolute;
+	top: calc(50% + var(--dot-spacing) * -.5px);
+	right: calc(50% + var(--dot-spacing) * -.5px);
+
+}
+
+.projects {
+ width: 100%;
 }

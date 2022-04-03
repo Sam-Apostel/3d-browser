@@ -1,0 +1,16 @@
+.project {
+	width: 100%;
+}
+
+.title {
+	font-family: monospace;
+	text-transform: uppercase;
+	align-self: start;
+	font-size: 3rem;
+	font-weight: 200;
+	text-align: right;
+	color: var(--gray-5);
+}
+.id  {
+	color: var(--gray-4);
+}
