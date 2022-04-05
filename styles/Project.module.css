@@ -1,16 +1,54 @@
 .project {
-	width: 100%;
+	display: grid;
+	grid-template:
+		'title title'
+		'canvas report';
+	flex-direction: column;
+	gap: 3rem;
 }
 
 .title {
-	font-family: monospace;
+	font-family: 'Rajdhani', sans-serif;
 	text-transform: uppercase;
-	align-self: start;
 	font-size: 3rem;
-	font-weight: 200;
+	font-weight: 400;
 	text-align: right;
 	color: var(--gray-5);
+
+	width: max-content;
+	justify-self: end;
+	margin: 0;
+
+	grid-area: title;
+
 }
 .id  {
 	color: var(--gray-4);
+	font-weight: 300;
+}
+
+.report {
+	width: max-content;
+	grid-area: report;
+	font-family: 'Rajdhani', sans-serif;
+	color: var(--gray-4);
+	margin-top: 5rem;
+}
+
+.report h3 {
+	color: var(--gray-5);
+	font-weight: 400;
+	font-size: 2rem;
+	text-transform: uppercase;
+	margin: 0;
+}
+.reportContent{
+	max-width: 10rem;
+}
+
+.canvas {
+	height: 70rem;
+	grid-area: canvas;
+	margin-block: -3rem -30rem;
+	/*margin-inline: -10rem 0;*/
 }

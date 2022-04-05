@@ -3,18 +3,12 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Project from '../Components/Project';
 import projects from '../data/projects';
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const Home: NextPage = () => {
-	const scrollRef = useRef();
-	const scroll = useRef(0);
 
 	return (
-		<div
-			className={styles.container}
-			ref={scrollRef}
-			onScroll={e => scroll.current = e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight)}
-		>
+		<div className={styles.container}>
 			<Head>
 				<title>3d browser</title>
 				<meta name="description" content="my 3d models" />
@@ -28,7 +22,7 @@ const Home: NextPage = () => {
 					Hello 3D!
 				</h1>
 				<div className={styles.projects}>
-					{projects.map(project => ({ ...project, key: project.id, scrollRef, scroll })).map(Project)}
+					{projects.map(project => <Project {...project} key={project.id} />)}
 				</div>
 			</main>
 

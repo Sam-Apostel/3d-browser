@@ -73,7 +73,7 @@
 	font-family: 'Rubik', sans-serif;
 	font-weight: 500;
 	color: var(--paper);
-	margin: 0;
+	margin-block: 10rem;
 	padding: 0;
 	font-size: 19rem;
 	line-height: .8;
@@ -159,5 +159,10 @@
 }
 
 .projects {
- width: 100%;
+	width: 100%;
+	max-width: 90rem;
+	display: flex;
+	flex-direction: column;
+	gap: 30rem;
+	margin-bottom: 30rem;
 }
