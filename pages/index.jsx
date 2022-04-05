@@ -1,11 +1,9 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Project from '../Components/Project';
 import projects from '../data/projects';
-import { useRef, useState } from "react";
 
-const Home: NextPage = () => {
+const Home = () => {
 
 	return (
 		<div className={styles.container}>

@@ -1,6 +1,5 @@
 import styles from "../styles/Project.module.css";
 import { Canvas } from '@react-three/fiber';
-import { useEffect, useRef, useState } from "react";
 import { Edges, OrbitControls, PerspectiveCamera, Stage } from "@react-three/drei"
 
 

@@ -5,11 +5,6 @@ import knobHook from './_knobHook.json';
 import cactusPot from './_cactusPot.json';
 import polarTiger from './_polar-tiger.json';
 
-
-const triangulateQuad = ([v1, v2, v3, v4]) => {
-	return [v1, v2, v3, v3, v4, v1].flat();
-};
-
 const triangulate = ([v1, ...vertices]) => {
 	return [
 		...vertices.flatMap((vertex, i) => {
