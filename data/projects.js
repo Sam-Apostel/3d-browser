@@ -47,20 +47,6 @@ const projects = [
 		},
 	},
 	{
-		title: 'Polar Printer',
-		id: '007.8-2',
-		geometries: getJSONGeometries(polarTiger).map(geom => geom
-			.rotateX(-Math.PI / 2)
-			.rotateY(-.3)
-		),
-		shadow: {
-			scale: 3024,
-			position: [0, 0, -30],
-			blur: 3,
-			opacity: 0.5,
-		},
-	},
-	{
 		title: 'Adaptaboard',
 		id: '003.2-0',
 		geometries: getJSONGeometries(adaptaboard).map(geom => geom
