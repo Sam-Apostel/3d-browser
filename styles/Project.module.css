@@ -32,7 +32,6 @@
 	grid-area: report;
 	font-family: 'Rajdhani', sans-serif;
 	color: var(--gray-4);
-	margin-top: 5rem;
 }
 
 .report h3 {
@@ -47,8 +46,8 @@
 }
 
 .canvas {
-	height: 70rem;
+	height: 50rem;
 	grid-area: canvas;
-	margin-block: -3rem -30rem;
+	margin-block: -3rem -10rem;
 	/*margin-inline: -10rem 0;*/
 }
