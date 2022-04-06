@@ -145,13 +145,13 @@
 
 .topRight {
 	position: absolute;
-	top: calc(0 - var(--grid-spacing-1));
-	right: calc(0 - var(--grid-spacing-1));
+	top: calc(var(--grid-spacing-1) * -1);
+	right: calc(var(--grid-spacing-1) * -1);
 }
 .topLeft {
 	position: absolute;
-	top: calc(0 - var(--grid-spacing-1));
-	left: calc(0 - var(--grid-spacing-1));
+	top: calc(var(--grid-spacing-1) * -1);
+	left: calc(var(--grid-spacing-1) * -1);
 }
 
 .center {
