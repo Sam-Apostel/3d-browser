@@ -61,10 +61,10 @@
 .footer {
 	display: flex;
 	justify-self: end;
-	padding: 2rem 0;
+	/*height: var(--grid-spacing-2);*/
 	justify-content: center;
 	align-items: center;
-	flex: 0 0 6rem;
+	flex: 0 0 var(--grid-spacing-2);
 }
 
 .footer a {
@@ -126,6 +126,7 @@
 	width: calc(var(--dot-spacing) * 1px);
 	height: calc(var(--dot-spacing) * 1px);
 	z-index: 0;
+	position: absolute;
 }
 
 
@@ -148,18 +149,30 @@
 }
 
 .topRight {
-	position: absolute;
 	top: calc(var(--grid-spacing-1) * -1);
 	right: calc(var(--grid-spacing-1) * -1);
 }
 .topLeft {
-	position: absolute;
 	top: calc(var(--grid-spacing-1) * -1);
 	left: calc(var(--grid-spacing-1) * -1);
 }
 
+.bottomCenter {
+	bottom: calc(var(--grid-spacing-1) * -1);
+	right: calc(50% - var(--grid-spacing-1));
+}
+
+.centerLeft {
+	top: calc(50% - var(--grid-spacing-1));
+	left: calc(var(--grid-spacing-1) * -1);
+}
+
+.centerRight {
+	top: calc(50% - var(--grid-spacing-1));
+	right: calc(var(--grid-spacing-1) * -1);
+}
+
 .center {
-	position: absolute;
 	top: calc(50% - var(--grid-spacing-1));
 	right: calc(50% - var(--grid-spacing-1));
 
