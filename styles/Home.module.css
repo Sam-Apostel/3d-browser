@@ -1,3 +1,4 @@
+
 .container {
 	min-height: calc(100vh + 6rem);
 	display: flex;
@@ -9,16 +10,16 @@
 	--dot-size: 2.5;
 
 	--dot-gradient-pos: calc((var(--dot-size) / var(--dot-spacing)) * 100%);
-	--dot-background-size: calc(var(--dot-spacing) * 1px);
+	--dot-background-size: calc(var(--dot-spacing) * var(--scale));
 
 	--main-grid-width: 2px;
 	--minor-grid-width: 1px;
 	--main-grid-spacing: 6;
 	--minor-grid-subdivisions: 1;
 
-	--grid-spacing-3: calc(var(--dot-spacing) * var( --main-grid-spacing) * 1px);
+	--grid-spacing-3: calc(var(--dot-spacing) * var( --main-grid-spacing) * var(--scale));
 	--grid-spacing-2: calc(var(--grid-spacing-3) / (var(--minor-grid-subdivisions) + 1));
-	--grid-spacing-1: calc(var(--dot-spacing) * 1px / 2);
+	--grid-spacing-1: calc(var(--dot-spacing) * var(--scale) / 2);
 
 	background-position:
 			0 0,
@@ -35,10 +36,10 @@
 	background-color: var(--paper);
 	background-size:
 			var(--dot-background-size) var(--dot-background-size),
-			calc(var(--dot-spacing) * var(--main-grid-spacing) * 1px) auto,
-			auto calc(var(--dot-spacing) * var(--main-grid-spacing) * 1px),
-			calc(var(--dot-spacing) * var(--main-grid-spacing) / (var(--minor-grid-subdivisions) + 1) * 1px) auto,
-			auto calc(var(--dot-spacing) * var(--main-grid-spacing) / (var(--minor-grid-subdivisions) + 1) * 1px);
+			calc(var(--dot-spacing) * var(--main-grid-spacing) * var(--scale)) auto,
+			auto calc(var(--dot-spacing) * var(--main-grid-spacing) * var(--scale)),
+			calc(var(--dot-spacing) * var(--main-grid-spacing) / (var(--minor-grid-subdivisions) + 1) * var(--scale)) auto,
+			auto calc(var(--dot-spacing) * var(--main-grid-spacing) / (var(--minor-grid-subdivisions) + 1) * var(--scale));
 }
 
 .main {
@@ -123,8 +124,8 @@
 }
 
 .cross, .line {
-	width: calc(var(--dot-spacing) * 1px);
-	height: calc(var(--dot-spacing) * 1px);
+	width: calc(var(--dot-spacing) * var(--scale));
+	height: calc(var(--dot-spacing) * var(--scale));
 	z-index: 0;
 	position: absolute;
 }
@@ -201,5 +202,10 @@
 	}
 	.projects {
 		gap: 0;
+	}
+}
+@media (max-width: 570px) {
+	.container {
+		--scale: .8px;
 	}
 }
