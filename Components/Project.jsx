@@ -60,7 +60,7 @@ const Report = ({ active, dimensions, date, parts }) => {
 			<div className={styles.reportContent}>
 				{active > 0 && <div><span>Active cases:</span> <span>{active}</span></div>}
 				{dimensions && <div><span>Dimensions:</span> <span>{dimensions.x}*{dimensions.y}*{dimensions.z}{dimensions.unit}</span></div>}
-				{date && <div><span>Conception:</span> <span>{date.toLocaleDateString('nl-be', { day: '2-digit', month: '2-digit', year: 'numeric'}).replaceAll('/', '.')}</span></div>}
+				{date && <div><span>Conception:</span> <span>{date.toLocaleDateString('nl-be', { day: '2-digit', month: '2-digit', year: 'numeric'}).replace(/\//g, '.')}</span></div>}
 				{parts > 1 && <div><span>Parts:</span> <span>{parts}</span></div>}
 			</div>
 		</section>
