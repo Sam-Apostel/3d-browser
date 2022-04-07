@@ -30,7 +30,7 @@ const Home = () => {
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					Powered by me
+					<span>Created by <b>Sam Apostel</b></span>
 				</a>
 			</footer>
 		</div>

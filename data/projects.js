@@ -11,114 +11,165 @@ const triangulate = ([v1, ...vertices]) => {
 			if (i === vertices.length -1) return [];
 			return [v1,vertex, vertices[i + 1]]
 		})
-	].flat();
+	];
 };
 
-const getJSONGeometries = (json) => {
-	return json.map(({ polygons }) => {
+const getExtrema = vertices => vertices.reduce(({ max, min }, vertex) => (
+	{
+		max: max.map((max, i) => Math.max(max, vertex[i])),
+		min: min.map((min, i) => Math.min(min, vertex[i])),
+	}
+), {
+	max: [-Infinity, -Infinity, -Infinity],
+	min: [Infinity, Infinity, Infinity]
+});
+
+
+const parseJSONGeometryData = json => {
+	const OGVertices = json.flatMap(({ polygons }) => polygons.flatMap(({ vertices }) => vertices.map(vertex => vertex.map(Math.round))));
+	const { max, min } = getExtrema(OGVertices);
+	const size = max.map((max, i) => max - min[i]);
+	const offCenter = size.map((size, i) => (size / 2) + min[i]);
+	const radius = Math.sqrt(size.reduce((distance, length) => distance + (length * length)), 0) / 2;
+
+	const geometries = json.map(({ polygons }) => {
 		const geometry = new THREE.BufferGeometry();
-		const vertices = new Float32Array(polygons.flatMap(({ vertices, plane }) => triangulate(vertices)));
+
+		const vertices = new Float32Array(polygons
+			.flatMap(({ vertices, plane }) => triangulate(vertices))
+			.map(vertex => vertex.map((coord, i) => coord - offCenter[i])) // center object
+			.flat());
 
 		geometry
-			.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) )
+			.setAttribute( 'position', new THREE.BufferAttribute(vertices, 3) )
 			.computeVertexNormals();
 		return geometry;
 	})
+
+	return {
+		size,
+		radius,
+		geometries,
+	}
+};
+
+const makeProject = ({ title, id, iteration: { major, minor }, active, date, geometries, size, radius, rotator, scale }) => {
+	const dimensions = [
+		...['x', 'y', 'z'].map((axis, i) => [axis, size[i] * scale.amount]),
+		['unit', scale.unit]
+	];
+	return {
+		title,
+			id: `${id.toString().padStart(3, '0')}.${major}-${minor}`,
+		active,
+		date: date && new Date(date),
+		size,
+		parts: geometries.length,
+		dimensions: scale && Object.fromEntries(dimensions),
+		geometries: geometries.map(rotator ?? (x => x)),
+	}
 };
 
 const projects = [
-	{
+	makeProject({
 		title: 'Toilet paper holder',
-		id: '002.0-1',
-		state: {
-			active: 2,
-			revisions: 1,
-			date: new Date('21 july 2021 20:59:42'),
+		id: 2,
+		iteration: {
+			major: 0,
+			minor: 1
 		},
-		geometries: getJSONGeometries(toiletPaperHolder).map(geom => geom
+		active: 2,
+		date: '21 july 2021 20:59:42',
+		...parseJSONGeometryData(toiletPaperHolder),
+		rotator: geom => geom
 			.rotateX(- (90 - 20) / 180 * Math.PI)
 			.rotateY(-35 / 180 * Math.PI)
-			.rotateX(.2)
-		),
-		shadow: {
-			scale: 1024,
-			position: [0, 0, -10],
-			blur: 2
-		},
-	},
-	{
-		title: 'Polar Printer',
-		id: '007.8-2',
-		geometries: getJSONGeometries(polarTiger).map(geom => geom
-			.rotateX(-Math.PI / 2)
-			.rotateY(-.3)
-		),
-		shadow: {
-			scale: 3024,
-			position: [0, 0, -30],
-			blur: 3,
-			opacity: 0.5,
-		},
-	},
-	{
+			.rotateX(.2),
+		scale: {
+			amount: 1,
+			unit: 'mm'
+		}
+	}),
+	// {
+	// 	title: 'Polar Printer',
+	// 	id: '007.8-2',
+	// 	geometries: getJSONGeometries(polarTiger).map(geom => geom
+	// 		.rotateX(-Math.PI / 2)
+	// 		.rotateY(-.3)
+	// 	),
+	// },
+	makeProject({
 		title: 'Adaptaboard',
-		id: '003.2-0',
-		geometries: getJSONGeometries(adaptaboard).map(geom => geom
+		id: 3,
+		iteration: {
+			major: 2,
+			minor: 0
+		},
+		active: 2,
+		// date: '21 july 2021 20:59:42',
+		...parseJSONGeometryData(adaptaboard),
+		rotator: geom => geom
 			.rotateX(- (90 - 20) / 180 * Math.PI)
 			.rotateY(-25 / 180 * Math.PI)
-			.rotateX(.2)
-		),
-		shadow: {
-			scale: 1024,
-			position: [0, 0, -6],
-			blur: 2
-		},
-	},
-	{
-		title: 'Pegboard hook',
-		id: '001.0-0',
-		geometries: getJSONGeometries(knobHook).map(geom => geom
-			.rotateZ(1.5)
-			.rotateY(-.3)
-		),
-		shadow: {
-			scale: 524,
-			position: [0, 0, -2],
-			blur: 2
-		},
-	},
-	{
-		title: 'Planter',
-		id: '004.0-1',
-		geometries: getJSONGeometries(cactusPot).map(geom => geom
-			.rotateX(-1.2)
-		),
-		shadow: {
-			scale: 912,
-			position: [0, 0, -8],
-			blur: 2
-		},
-	},
-	{
-		title: 'Dry box',
-		id: '006.0-0',
-		geometries: [new THREE.DodecahedronGeometry(40)],
-		shadow: {
-			scale: 1000,
-			position: [0, 0, -7],
-			blur: 2
-		},
-	},
-	{
-		title: 'Parts tray',
-		id: '005.1-0',
-		geometries: [new THREE.DodecahedronGeometry(40)],
-		shadow: {
-		scale: 1000,
-			position: [0, 0, -7],
-			blur: 2
+			.rotateX(.2),
+		scale: {
+			amount: 1,
+			unit: 'mm'
 		}
-	},
+	}),
+	makeProject({
+		title: 'Pegboard hook',
+		id: 1,
+		iteration: {
+			major: 0,
+			minor: 0
+		},
+		scale: {
+			amount: 1,
+			unit: 'mm'
+		},
+		active: 1,
+		...parseJSONGeometryData(knobHook),
+		rotator: geom => geom
+			.rotateZ(1.5)
+			.rotateY(-.3),
+	}),
+	makeProject({
+		title: 'Planter',
+		id: 4,
+		iteration: {
+			major: 0,
+			minor: 1
+		},
+		active: 3,
+		scale: {
+			amount: 1,
+			unit: 'mm'
+		},
+		...parseJSONGeometryData(cactusPot),
+		rotator: geom => geom
+			.rotateX(-1.2),
+	}),
+	// makeProject({
+	// 	title: 'Dry box',
+	// 	id: 6,
+	// 	iteration: {
+	// 		major: 0,
+	// 		minor: 0
+	// 	},
+	// 	geometries: [new THREE.DodecahedronGeometry(40)],
+	//
+	// }),
+	// makeProject({
+	// 	title: 'Parts tray',
+	// 	id: 5,
+	// 	iteration: {
+	// 		major: 1,
+	// 		minor: 0
+	// 	},
+	// 	geometries: [new THREE.DodecahedronGeometry(40)],
+	//
+	// }),
 ];
 
 export default projects;
