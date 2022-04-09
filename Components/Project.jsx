@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styles from '../styles/Project.module.css';
 import { Canvas, useThree } from '@react-three/fiber';
-import { PresentationControls, PerspectiveCamera, Stage } from '@react-three/drei';
+import { PresentationControls, PerspectiveCamera, Stage, Float } from '@react-three/drei';
 import { OutlineEffect } from '../three/outlineRenderer';
 
 const outlineParams = {
@@ -17,6 +17,7 @@ const Scene = ({ geometries }) => {
 		if (!set || !gl) return;
 		set({ gl: new OutlineEffect(gl, outlineParams) });
 	}, []);
+
 	const colors = [
 		'#c7aea3',
 		'#9d9182'
@@ -36,15 +37,17 @@ const Scene = ({ geometries }) => {
 					azimuth={[-Infinity, Infinity]}
 					speed={0.8}
 				>
-					{geometries.map((geometry, id) => (
-						<mesh
-							key={id}
-							geometry={geometry}
-						>
-							<meshStandardMaterial color={colors[id]}/>
-							{/*<Edges />*/}
-						</mesh>
-					))}
+
+					<Float rotationIntensity={3} floatIntensity={0}>
+						{geometries.map((geometry, id) => (
+							<mesh
+								key={id}
+								geometry={geometry}
+							>
+								<meshStandardMaterial color={colors[id]}/>
+							</mesh>
+						))}
+					</Float>
 				</PresentationControls>
 			</Stage>
 		</>

@@ -29,11 +29,11 @@ const Home = () => {
 
 			<footer className={styles.footer}>
 				<a
-					href="https://sams.works"
+					href="https://github.com/Sam-Apostel"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<span>Created by <b>Sam Apostel</b></span>
+					<span>By <b>Sam Apostel</b></span>
 				</a>
 			</footer>
 		</div>
