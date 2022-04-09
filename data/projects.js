@@ -4,6 +4,7 @@ import adaptaboard from './_adaptaboard.json';
 import knobHook from './_knobHook.json';
 import cactusPot from './_cactusPot.json';
 import polarTiger from './_polar-tiger.json';
+import frameMount from './_metalPictureHolder.json';
 
 const triangulate = ([v1, ...vertices]) => {
 	return [
@@ -131,8 +132,26 @@ const projects = [
 		active: 1,
 		...parseJSONGeometryData(knobHook),
 		rotator: geom => geom
-			.rotateZ(1.5)
-			.rotateY(-.3),
+			.rotateZ(Math.PI / 2)
+			.rotateY(-.2),
+	}),
+	makeProject({
+		title: 'frame wall mount',
+		id: 7,
+		iteration: {
+			major: 0,
+			minor: 0
+		},
+		scale: {
+			amount: 1,
+			unit: 'mm'
+		},
+		active: 2,
+		date: '8 april 2022 21:36:42',
+		...parseJSONGeometryData(frameMount),
+		rotator: geom => geom
+			.rotateX(-Math.PI / 2)
+			.rotateY(.8),
 	}),
 	makeProject({
 		title: 'Planter',
