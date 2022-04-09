@@ -91,14 +91,22 @@ const projects = [
 			unit: 'mm'
 		}
 	}),
-	// {
-	// 	title: 'Polar Printer',
-	// 	id: '007.8-2',
-	// 	geometries: getJSONGeometries(polarTiger).map(geom => geom
-	// 		.rotateX(-Math.PI / 2)
-	// 		.rotateY(-.3)
-	// 	),
-	// },
+	makeProject({
+		title: 'Polar Printer',
+		id: 8,
+		iteration: {
+		   major: 7,
+		   minor: 2
+	   },
+	   ...parseJSONGeometryData(polarTiger),
+	   rotator: geom => geom
+		   .rotateX(-Math.PI / 2)
+		   .rotateY(-.3),
+	   scale: {
+		   amount: 0.1,
+		   unit: 'cm'
+	   }
+   }),
 	makeProject({
 		title: 'Adaptaboard',
 		id: 3,
