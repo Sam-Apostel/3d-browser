@@ -56,7 +56,7 @@ const parseJSONGeometryData = json => {
 
 const makeProject = ({ title, id, iteration: { major, minor }, active, date, geometries, size, radius, rotator, scale }) => {
 	const dimensions = [
-		...['x', 'y', 'z'].map((axis, i) => [axis, size[i] * scale.amount]),
+		...['x', 'y', 'z'].map((axis, i) => [axis, Math.round(size[i] * scale.amount)]),
 		['unit', scale.unit]
 	];
 	return {
