@@ -27,15 +27,7 @@ const Home = () => {
 				</div>
 			</main>
 
-			<footer className={styles.footer}>
-				<a
-					href="https://github.com/Sam-Apostel"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<span>By <b>Sam Apostel</b></span>
-				</a>
-			</footer>
+			<Footer />
 		</div>
 	)
 }

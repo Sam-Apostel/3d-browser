@@ -1,0 +1,22 @@
+.footer {
+	display: flex;
+	justify-self: end;
+	height: var(--grid-spacing-2);
+	justify-content: center;
+	align-items: center;
+	flex: 0 0 var(--grid-spacing-2);
+	font-size: 1.2rem;
+	font-weight: 300;
+	color: var(--gray-5);
+}
+
+.footer a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-grow: 1;
+}
+
+.footer b {
+	font-weight: 500;
+}

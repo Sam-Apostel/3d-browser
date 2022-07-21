@@ -59,21 +59,8 @@
  z-index: 1;
 }
 
-.footer {
-	display: flex;
-	justify-self: end;
-	/*height: var(--grid-spacing-2);*/
-	justify-content: center;
-	align-items: center;
-	flex: 0 0 var(--grid-spacing-2);
-}
 
-.footer a {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-grow: 1;
-}
+
 
 .title {
 	font-family: 'Rubik', sans-serif;
