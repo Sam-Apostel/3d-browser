@@ -1,21 +1,24 @@
 import * as THREE from 'three';
-import toiletPaperHolder from './_toiletPaperHolder.json';
-import adaptaboard from './_adaptaboard.json';
-import knobHook from './_knobHook.json';
-import cactusPot from './_cactusPot.json';
-import polarTiger from './_polar-tiger.json';
-import frameMount from './_metalPictureHolder.json';
+const toiletPaperHolder: ModelData = require('./_toiletPaperHolder.json');
+const adaptaboard: ModelData = require('./_adaptaboard.json');
+const knobHook: ModelData = require('./_knobHook.json');
+const cactusPot: ModelData = require('./_cactusPot.json');
+const polarTiger: ModelData = require('./_polar-tiger.json');
+const frameMount: ModelData = require('./_metalPictureHolder.json');
+import { BufferGeometry } from 'three';
 
-const triangulate = ([v1, ...vertices]) => {
-	return [
-		...vertices.flatMap((vertex, i) => {
-			if (i === vertices.length -1) return [];
-			return [v1,vertex, vertices[i + 1]]
-		})
-	];
+type Vertex = [x: number, y: number, z: number];
+type Face = [v1: Vertex, v2: Vertex, v3: Vertex];
+type ModelData = { polygons: { vertices: Vertex[] }[] }[];
+
+const triangulate = ([v1, ...vertices]: Vertex[]): Face[] => {
+	const middle = vertices.slice(0, -1);
+	return middle.map((vertex, i) => {
+		return [v1, vertex, vertices[i + 1]];
+	});
 };
 
-const getExtrema = vertices => vertices.reduce(({ max, min }, vertex) => (
+const getExtrema = (vertices: Vertex[]) => vertices.reduce(({ max, min }, vertex) => (
 	{
 		max: max.map((max, i) => Math.max(max, vertex[i])),
 		min: min.map((min, i) => Math.min(min, vertex[i])),
@@ -26,18 +29,18 @@ const getExtrema = vertices => vertices.reduce(({ max, min }, vertex) => (
 });
 
 
-const parseJSONGeometryData = json => {
-	const OGVertices = json.flatMap(({ polygons }) => polygons.flatMap(({ vertices }) => vertices.map(vertex => vertex.map(Math.round))));
+const parseJSONGeometryData = (json: ModelData ) => {
+	const OGVertices = json.flatMap(({ polygons }) => polygons.flatMap(({ vertices }) => vertices.map(vertex => vertex.map(Math.round) as Vertex)));
 	const { max, min } = getExtrema(OGVertices);
-	const size = max.map((max, i) => max - min[i]);
+	const size = max.map((max, i) => max - min[i]) as Vertex;
 	const offCenter = size.map((size, i) => (size / 2) + min[i]);
-	const radius = Math.sqrt(size.reduce((distance, length) => distance + (length * length)), 0) / 2;
+	const radius = Math.sqrt(size.reduce((distance, length) => distance + (length * length))) / 2;
 
 	const geometries = json.map(({ polygons }) => {
 		const geometry = new THREE.BufferGeometry();
 
 		const vertices = new Float32Array(polygons
-			.flatMap(({ vertices, plane }) => triangulate(vertices))
+			.flatMap(({ vertices }) => triangulate(vertices).flat())
 			.map(vertex => vertex.map((coord, i) => coord - offCenter[i])) // center object
 			.flat());
 
@@ -54,7 +57,35 @@ const parseJSONGeometryData = json => {
 	}
 };
 
-const makeProject = ({ title, id, iteration: { major, minor }, active, date, geometries, size, radius, rotator, scale }) => {
+type ProjectFactoryArgs = {
+	title: string,
+	id: number,
+	iteration: {
+		major: number,
+		minor: number
+	},
+	active?: number,
+	date?: string,
+	geometries: BufferGeometry[],
+	size: Vertex,
+	radius: number,
+	rotator: (geom: BufferGeometry) => BufferGeometry,
+	scale: {
+		amount: number,
+		unit: string
+	}
+};
+const makeProject = ({
+     title,
+     id,
+     iteration: { major, minor },
+     active,
+     date,
+     geometries,
+     size,
+     rotator,
+     scale
+}: ProjectFactoryArgs) => {
 	const dimensions = [
 		...['x', 'y', 'z'].map((axis, i) => [axis, Math.round(size[i] * scale.amount)]),
 		['unit', scale.unit]
@@ -63,7 +94,7 @@ const makeProject = ({ title, id, iteration: { major, minor }, active, date, geo
 		title,
 			id: `${id.toString().padStart(3, '0')}.${major}-${minor}`,
 		active,
-		date: date && new Date(date),
+		date: (date !== '' ? (date && new Date(date)) : undefined) as Date | undefined,
 		size,
 		parts: geometries.length,
 		dimensions: scale && Object.fromEntries(dimensions),
@@ -72,7 +103,8 @@ const makeProject = ({ title, id, iteration: { major, minor }, active, date, geo
 };
 
 const projects = [
-	makeProject({
+
+	{
 		title: 'Toilet paper holder',
 		id: 2,
 		iteration: {
@@ -82,7 +114,7 @@ const projects = [
 		active: 2,
 		date: '21 july 2021 20:59:42',
 		...parseJSONGeometryData(toiletPaperHolder),
-		rotator: geom => geom
+		rotator: (geom: BufferGeometry) => geom
 			.rotateX(- (90 - 20) / 180 * Math.PI)
 			.rotateY(-35 / 180 * Math.PI)
 			.rotateX(.2),
@@ -90,8 +122,9 @@ const projects = [
 			amount: 1,
 			unit: 'mm'
 		}
-	}),
-	makeProject({
+	},
+
+	{
 		title: 'Polar Printer',
 		id: 8,
 		iteration: {
@@ -99,15 +132,16 @@ const projects = [
 		   minor: 2
 	   },
 	   ...parseJSONGeometryData(polarTiger),
-	   rotator: geom => geom
+	   rotator: (geom: BufferGeometry) => geom
 		   .rotateX(-Math.PI / 2)
 		   .rotateY(-.3),
 	   scale: {
 		   amount: 0.1,
 		   unit: 'cm'
 	   }
-   }),
-	makeProject({
+   },
+
+	{
 		title: 'Adaptaboard',
 		id: 3,
 		iteration: {
@@ -117,7 +151,7 @@ const projects = [
 		active: 2,
 		// date: '21 july 2021 20:59:42',
 		...parseJSONGeometryData(adaptaboard),
-		rotator: geom => geom
+		rotator: (geom: BufferGeometry) => geom
 			.rotateX(- (90 - 20) / 180 * Math.PI)
 			.rotateY(-25 / 180 * Math.PI)
 			.rotateX(.2),
@@ -125,8 +159,9 @@ const projects = [
 			amount: 1,
 			unit: 'mm'
 		}
-	}),
-	makeProject({
+	},
+
+	{
 		title: 'Pegboard hook',
 		id: 1,
 		iteration: {
@@ -139,11 +174,12 @@ const projects = [
 		},
 		active: 1,
 		...parseJSONGeometryData(knobHook),
-		rotator: geom => geom
+		rotator: (geom: BufferGeometry) => geom
 			.rotateZ(Math.PI / 2)
 			.rotateY(-.2),
-	}),
-	makeProject({
+	},
+
+{
 		title: 'frame wall mount',
 		id: 7,
 		iteration: {
@@ -157,11 +193,12 @@ const projects = [
 		active: 2,
 		date: '8 april 2022 21:36:42',
 		...parseJSONGeometryData(frameMount),
-		rotator: geom => geom
+		rotator: (geom: BufferGeometry) => geom
 			.rotateX(-Math.PI / 2)
 			.rotateY(.8),
-	}),
-	makeProject({
+	},
+
+	{
 		title: 'Planter',
 		id: 4,
 		iteration: {
@@ -174,10 +211,11 @@ const projects = [
 			unit: 'mm'
 		},
 		...parseJSONGeometryData(cactusPot),
-		rotator: geom => geom
+		rotator: (geom: BufferGeometry) => geom
 			.rotateX(-1.2),
-	}),
-	// makeProject({
+	},
+
+	// {
 	// 	title: 'Dry box',
 	// 	id: 6,
 	// 	iteration: {
@@ -196,7 +234,7 @@ const projects = [
 	// 	},
 	// 	geometries: [new THREE.DodecahedronGeometry(40)],
 	//
-	// }),
-];
+	// },
+].map(makeProject);
 
 export default projects;

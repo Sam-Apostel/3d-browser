@@ -33,7 +33,7 @@
 			linear-gradient(0deg, var(--gray-3) var(--main-grid-width), transparent var(--main-grid-width)),
 			linear-gradient(-90deg, var(--gray-2) var(--minor-grid-width), transparent var(--minor-grid-width)),
 			linear-gradient(0deg, var(--gray-2) var(--minor-grid-width), transparent var(--minor-grid-width));
-	background-color: var(--paper);
+	background-color: var(--background);
 	background-size:
 			var(--dot-background-size) var(--dot-background-size),
 			calc(var(--dot-spacing) * var(--main-grid-spacing) * var(--scale)) auto,

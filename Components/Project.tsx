@@ -3,28 +3,33 @@ import styles from '../styles/Project.module.css';
 import { Canvas, useThree } from '@react-three/fiber';
 import { PresentationControls, PerspectiveCamera, Stage, Float } from '@react-three/drei';
 import { OutlineEffect } from '../three/outlineRenderer';
+import { BufferGeometry } from 'three';
 
-const outlineParams = {
-	defaultThickness: 0.005,
-	defaultColor: [ 116, 116, 116 ].map(v => v / 256),
-	defaultAlpha: 1,
+type SceneProps = {
+	geometries: BufferGeometry[];
+	colors: {
+		background: string
+	};
 };
 
-const Scene = ({ geometries }) => {
+const Scene = ({ geometries, colors }: SceneProps) => {
 	const { set, gl } = useThree(({ set, gl }) => ({ set, gl }));
+
+	const outlineParams = {
+		defaultThickness: 0.005,
+		defaultColor: [ 116, 116, 116 ].map(v => v / 256),
+		defaultAlpha: 1,
+	};
+
 
 	useEffect(() => {
 		if (!set || !gl) return;
+		// @ts-ignore
 		set({ gl: new OutlineEffect(gl, outlineParams) });
 	}, []);
 
-	const colors = [
-		'#c7aea3',
-		'#9d9182'
-	]
 	return (
 		<>
-
 			<Stage
 				contactShadow={false}
 			>
@@ -44,7 +49,7 @@ const Scene = ({ geometries }) => {
 								key={id}
 								geometry={geometry}
 							>
-								<meshStandardMaterial color={colors[id]}/>
+								<meshStandardMaterial color={colors.background}/>
 							</mesh>
 						))}
 					</Float>
@@ -54,14 +59,26 @@ const Scene = ({ geometries }) => {
 	);
 }
 
-const Report = ({ active, dimensions, date, parts }) => {
+type ReportProps = {
+	active?: number;
+	dimensions?: {
+		x: number,
+		y: number,
+		z: number,
+		unit: string
+	};
+	date?: Date;
+	parts: number;
+};
+
+const Report = ({ active, dimensions, date, parts }: ReportProps) => {
 	if (((active ?? 0) <= 0) && (!dimensions) && (parts <= 1) && (!date)) return null;
 
 	return (
 		<section className={styles.report}>
 			<h3>State report</h3>
 			<div className={styles.reportContent}>
-				{active > 0 && <div><span>Active cases:</span> <span>{active}</span></div>}
+				{active ? <div><span>Active cases:</span> <span>{active}</span></div> : null}
 				{dimensions && <div><span>Dimensions:</span> <span>{dimensions.x}*{dimensions.y}*{dimensions.z}{dimensions.unit}</span></div>}
 				{date && <div><span>Conception:</span> <span>{date.toLocaleDateString('nl-be', { day: '2-digit', month: '2-digit', year: 'numeric'}).replace(/\//g, '.')}</span></div>}
 				{parts > 1 && <div><span>Parts:</span> <span>{parts}</span></div>}
@@ -69,14 +86,33 @@ const Report = ({ active, dimensions, date, parts }) => {
 		</section>
 	);
 }
-const Project = (props) => {
+
+type Props = {
+	title: string;
+	id: string;
+	active?: number;
+	dimensions?: {
+		x: number,
+		y: number,
+		z: number,
+		unit: string
+	};
+	date?: Date;
+	parts: number;
+	geometries: BufferGeometry[];
+	colors: {
+		background: `#${string}`
+	};
+};
+
+const Project = ({ title, id, active, dimensions, date, parts, geometries, colors }: Props) => {
 	return (
 		<section className={styles.project}>
 			<h2 className={styles.title}>{props.title} <span className={styles.id}>{props.id}</span></h2>
 			<Report active={props.active} dimensions={props.dimensions} date={props.date} parts={props.parts} />
 			<div className={styles.canvas}>
 				<Canvas>
-					<Scene geometries={props.geometries} />
+					<Scene geometries={geometries} colors={colors} />
 					<PerspectiveCamera makeDefault />
 				</Canvas>
 			</div>
