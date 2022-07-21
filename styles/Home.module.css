@@ -66,10 +66,11 @@
 	font-family: 'Rubik', sans-serif;
 	font-weight: 500;
 	color: var(--paper-alt);
-	margin-block: var(--grid-spacing-2);
 	padding: 0;
-	font-size: min(250px, calc((100vw - (var(--grid-spacing-1) * 4 * 2)) / 4.5)); /* 1064px breed */
-	line-height: var(--grid-spacing-3);
+	font-size: min(150px, calc((100vw - (var(--grid-spacing-1) * 4 * 2)) / 8.5));
+	margin-bottom: var(--grid-spacing-2);
+	margin-top: calc(var(--grid-spacing-2) - var(--grid-spacing-1));
+	line-height: var(--grid-spacing-2);
 	position: relative;
 
 	--shadow-color: rgba(159, 159, 159, 0.05);
@@ -108,6 +109,13 @@
 		-2.7vw 1.8vw .3vw var(--shadow-color),
 		-2.8vw 1.9vw .4vw var(--shadow-color),
 		-2.9vw 2.0vw .5vw var(--shadow-color);
+}
+
+.intro {
+	font-size: 1.2rem;
+	font-weight: 300;
+	margin-top: calc(var(--grid-spacing-1) * -1);
+	line-height: calc(var(--grid-spacing-1) * 2);
 }
 
 .cross, .line {
@@ -185,7 +193,8 @@
 		margin-top: var(--grid-spacing-2);
 	}
 	.title {
-		line-height: var(--grid-spacing-2);
+		margin-bottom: calc(var(--grid-spacing-2) - var(--grid-spacing-1));
+		margin-top: 0;
 	}
 	.projects {
 		gap: 0;

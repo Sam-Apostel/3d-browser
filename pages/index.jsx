@@ -23,11 +23,10 @@ const Home = () => {
 			<main className={styles.main}>
 				<span className={`${styles.cross} ${styles.topRight}`}/>
 				<span className={`${styles.line} ${styles.topLeft}`}/>
-				<span className={`${styles.cross} ${styles.centerLeft}`}/>
-				<span className={`${styles.cross} ${styles.centerRight}`}/>
 				<span className={`${styles.line} ${styles.bottomCenter}`}/>
+				<span className={styles.intro}>Welcome to</span>
 				<h1 className={styles.title}>
-					Hello 3D!
+					Sams 3D Land
 				</h1>
 				<div className={styles.projects}>
 					{projects.map(project => <Project {...project} key={project.id} colors={{ background: backgroundColor }} />)}
