@@ -25,8 +25,11 @@ a {
   --paper: #d7d0cb;
   --paper-alt: #e8e4e0;
 
+  --blueprint: #6a6ad1;
+  --blueprint-alt: #7d7de1;
+
   --gray-1: #cbc9c6;
-  --gray-2: #cec8c7;
+  --gray-2: rgba(206, 200, 199, 0.41);
   --gray-3: #c7c5c3;
   --gray-4: #777474;
   --gray-5: #2c2c2c;

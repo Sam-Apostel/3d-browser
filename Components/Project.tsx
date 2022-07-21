@@ -3,6 +3,7 @@ import styles from '../styles/Project.module.css';
 import { Canvas, useThree } from '@react-three/fiber';
 import { PresentationControls, PerspectiveCamera, Stage, Float } from '@react-three/drei';
 import { OutlineEffect } from '../three/outlineRenderer';
+import Link from 'next/link';
 import { BufferGeometry } from 'three';
 
 type SceneProps = {
@@ -108,7 +109,7 @@ type Props = {
 const Project = ({ title, id, active, dimensions, date, parts, geometries, colors }: Props) => {
 	return (
 		<section className={styles.project}>
-			<h2 className={styles.title}>{title} <span className={styles.id}>{id}</span></h2>
+			<Link href={`/model/${title.replace(/ /g, '-')}`}><h2 className={styles.title}>{title} <span className={styles.id}>{id}</span></h2></Link>
 			<Report active={active} dimensions={dimensions} date={date} parts={parts} />
 			<div className={styles.canvas}>
 				<Canvas>

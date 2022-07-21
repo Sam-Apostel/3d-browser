@@ -1,0 +1,167 @@
+.container {
+	min-height: calc(100vh + 6rem);
+	display: flex;
+	flex-direction: column;
+	padding-inline: var(--grid-spacing-2);
+	max-width: 100%;
+
+	--dot-spacing: 15;
+	--dot-size: 1;
+
+	--gray-4: rgba(255, 255, 255, 0.69);
+	--gray-5: white;
+
+	--dot-gradient-pos: calc((var(--dot-size) / var(--dot-spacing)) * 100%);
+	--dot-background-size: calc(var(--dot-spacing) * var(--scale));
+
+	--main-grid-width: 1px;
+	--minor-grid-width: 1px;
+	--main-grid-spacing: 25;
+	--minor-grid-subdivisions: 4;
+
+	--grid-spacing-3: calc(var(--dot-spacing) * var( --main-grid-spacing) * var(--scale));
+	--grid-spacing-2: calc(var(--grid-spacing-3) / (var(--minor-grid-subdivisions) + 1));
+	--grid-spacing-1: calc(var(--dot-spacing) * var(--scale) / 2);
+
+
+	background-position:
+			0 0,
+			var(--main-grid-width),
+			0 var(--main-grid-width),
+			var(--minor-grid-width),
+			0 var(--minor-grid-width);
+	background-image:
+			radial-gradient(var(--gray-1) var(--dot-gradient-pos), transparent var(--dot-gradient-pos)),
+			linear-gradient(-90deg, var(--gray-3) var(--main-grid-width), transparent var(--main-grid-width)),
+			linear-gradient(0deg, var(--gray-3) var(--main-grid-width), transparent var(--main-grid-width)),
+			linear-gradient(-90deg, var(--gray-2) var(--minor-grid-width), transparent var(--minor-grid-width)),
+			linear-gradient(0deg, var(--gray-2) var(--minor-grid-width), transparent var(--minor-grid-width));
+	background-color: var(--background);
+	background-size:
+			var(--dot-background-size) var(--dot-background-size),
+			calc(var(--dot-spacing) * var(--main-grid-spacing) * var(--scale)) auto,
+			auto calc(var(--dot-spacing) * var(--main-grid-spacing) * var(--scale)),
+			calc(var(--dot-spacing) * var(--main-grid-spacing) / (var(--minor-grid-subdivisions) + 1) * var(--scale)) auto,
+			auto calc(var(--dot-spacing) * var(--main-grid-spacing) / (var(--minor-grid-subdivisions) + 1) * var(--scale));
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: var(--grid-spacing-3);
+	margin-inline: auto;
+	margin-bottom: auto;
+	max-height: max-content;
+	max-width: 100%;
+	position: relative;
+	padding-inline: var(--grid-spacing-2);
+}
+.main * {
+ z-index: 1;
+}
+
+.footer {
+	display: flex;
+	justify-self: end;
+	/*height: var(--grid-spacing-2);*/
+	justify-content: center;
+	align-items: center;
+	flex: 0 0 var(--grid-spacing-2);
+	color: var(--gray-5);
+}
+
+.footer a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-grow: 1;
+}
+
+.cross, .line {
+	width: calc(var(--dot-spacing) * var(--scale));
+	height: calc(var(--dot-spacing) * var(--scale));
+	z-index: 0;
+	position: absolute;
+}
+
+
+.cross::before, .cross::after, .line::before {
+	content: '';
+	position: absolute;
+	background-color: var(--gray-5);
+}
+
+.cross::before {
+	width: 3px;
+	height: 100%;
+	right: calc(50% - 3px / 2);
+}
+
+.cross::after, .line::before {
+	width: 100%;
+	height: 3px;
+	top: calc(50% - 3px / 2);
+}
+
+.topRight {
+	top: calc(var(--grid-spacing-1) * -1);
+	right: calc(var(--grid-spacing-1) * -1);
+}
+.topLeft {
+	top: calc(var(--grid-spacing-1) * -1);
+	left: calc(var(--grid-spacing-1) * -1);
+}
+
+.bottomCenter {
+	bottom: calc(var(--grid-spacing-1) * -1);
+	right: calc(50% - var(--grid-spacing-1));
+}
+
+.centerLeft {
+	top: calc(50% - var(--grid-spacing-1));
+	left: calc(var(--grid-spacing-1) * -1);
+}
+
+.centerRight {
+	top: calc(50% - var(--grid-spacing-1));
+	right: calc(var(--grid-spacing-1) * -1);
+}
+
+.center {
+	top: calc(50% - var(--grid-spacing-1));
+	right: calc(50% - var(--grid-spacing-1));
+
+}
+
+.projects {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: var(--grid-spacing-2);
+}
+
+@media (max-width: 1424px) {
+	.container, .main {
+		padding-inline: calc(var(--grid-spacing-1) * 2);
+	}
+}
+
+@media (max-width: 850px) {
+	.main {
+		padding-inline: calc(var(--grid-spacing-1) * 1);
+		margin-top: var(--grid-spacing-2);
+	}
+	.title {
+		line-height: var(--grid-spacing-2);
+	}
+	.projects {
+		gap: 0;
+	}
+}
+@media (max-width: 570px) {
+	.container {
+		--scale: .8px;
+	}
+}
