@@ -108,8 +108,8 @@ type Props = {
 const Project = ({ title, id, active, dimensions, date, parts, geometries, colors }: Props) => {
 	return (
 		<section className={styles.project}>
-			<h2 className={styles.title}>{props.title} <span className={styles.id}>{props.id}</span></h2>
-			<Report active={props.active} dimensions={props.dimensions} date={props.date} parts={props.parts} />
+			<h2 className={styles.title}>{title} <span className={styles.id}>{id}</span></h2>
+			<Report active={active} dimensions={dimensions} date={date} parts={parts} />
 			<div className={styles.canvas}>
 				<Canvas>
 					<Scene geometries={geometries} colors={colors} />
