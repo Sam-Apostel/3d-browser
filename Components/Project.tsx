@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import styles from '../styles/Project.module.css';
+import styles from '../styles/Project.module.scss';
 import { Canvas, useThree } from '@react-three/fiber';
 import { PresentationControls, PerspectiveCamera, Stage, Float } from '@react-three/drei';
 import { OutlineEffect } from '../three/outlineRenderer';

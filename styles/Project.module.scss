@@ -33,17 +33,17 @@
 	grid-area: report;
 	font-family: 'Rajdhani', sans-serif;
 	color: var(--gray-4);
-	/*width: var(--grid-spacing-3);*/
+
+	h3 {
+		color: var(--gray-5);
+		font-weight: 400;
+		font-size: 30px;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: calc(var(--grid-spacing-1) * 2);
+	}
 }
 
-.report h3 {
-	color: var(--gray-5);
-	font-weight: 400;
-	font-size: 30px;
-	text-transform: uppercase;
-	margin: 0;
-	line-height: calc(var(--grid-spacing-1) * 2);
-}
 
 .reportContent {
 	margin-top: calc(var(--grid-spacing-1) / 2);
@@ -52,9 +52,9 @@
 	display: flex;
 	flex-direction: column;
 	font-weight: 300;
-}
-.reportContent div span:first-child {
-	font-size: 1.2rem;
+	div span:first-child {
+	  	font-size: 1.2rem;
+  	}
 }
 
 .canvas {
@@ -64,9 +64,9 @@
 	max-width: 100%;
 	align-self: stretch;
 	touch-action: none;
-}
-.canvas * {
-	max-width: 100%;
+	* {
+		max-width: 100%;
+	}
 }
 
 @media (max-width: 850px) {
@@ -97,6 +97,5 @@
 	.report h3 {
 		font-size: 1.6rem;
 	}
-
 }
 

@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Project from '../../Components/Project';
 import projects from '../../data/projects';
 import Link from 'next/link';
-import styles from '../../styles/Model.module.css';
+import styles from '../../styles/Model.module.scss';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useLayoutEffect } from 'react';
 import Footer from '../../Components/Footer';
