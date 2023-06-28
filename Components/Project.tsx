@@ -11,9 +11,10 @@ type SceneProps = {
 	colors: {
 		background: string
 	};
+	rotator: (geometry: BufferGeometry) => BufferGeometry;
 };
 
-const Scene = ({ geometries, colors }: SceneProps) => {
+const Scene = ({ geometries, colors, rotator }: SceneProps) => {
 	const { set, gl } = useThree(({ set, gl }) => ({ set, gl }));
 
 	const outlineParams = {
@@ -32,7 +33,16 @@ const Scene = ({ geometries, colors }: SceneProps) => {
 	return (
 		<>
 			<Stage
-				contactShadow={false}
+				shadows={false}
+				// adjustCamera={true}
+				center={{
+					top: true,
+					right: true,
+					bottom: true,
+					left: true,
+					front: true,
+					back: true,
+				}}
 			>
 				<PresentationControls
 					global
@@ -45,14 +55,17 @@ const Scene = ({ geometries, colors }: SceneProps) => {
 				>
 
 					<Float rotationIntensity={3} floatIntensity={0}>
-						{geometries.map((geometry, id) => (
-							<mesh
-								key={id}
-								geometry={geometry}
-							>
-								<meshStandardMaterial color={colors.background}/>
-							</mesh>
-						))}
+						{geometries.map((geometry, id) => {
+							const geom = rotator(geometry.clone());
+							return (
+								<mesh
+									key={id}
+									geometry={geom}
+								>
+									<meshStandardMaterial color={colors.background}/>
+								</mesh>
+							);
+						})}
 					</Float>
 				</PresentationControls>
 			</Stage>
@@ -104,16 +117,17 @@ type Props = {
 	colors: {
 		background: `#${string}`
 	};
+	rotator: (geometry: BufferGeometry) => BufferGeometry;
 };
 
-const Project = ({ title, id, active, dimensions, date, parts, geometries, colors }: Props) => {
+const Project = ({ title, id, active, dimensions, date, parts, geometries, colors, rotator }: Props) => {
 	return (
 		<section className={styles.project}>
 			<Link href={`/model/${title.replace(/ /g, '-')}`}><h2 className={styles.title}>{title} <span className={styles.id}>{id}</span></h2></Link>
 			<Report active={active} dimensions={dimensions} date={date} parts={parts} />
 			<div className={styles.canvas}>
 				<Canvas>
-					<Scene geometries={geometries} colors={colors} />
+					<Scene geometries={geometries} colors={colors} rotator={rotator} />
 					<PerspectiveCamera makeDefault />
 				</Canvas>
 			</div>

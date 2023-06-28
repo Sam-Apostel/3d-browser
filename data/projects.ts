@@ -92,18 +92,18 @@ const makeProject = ({
 	];
 	return {
 		title,
-			id: `${id.toString().padStart(3, '0')}.${major}-${minor}`,
+		id: `${id.toString().padStart(3, '0')}.${major}-${minor}`,
 		active,
 		date: (date !== '' ? (date && new Date(date)) : undefined) as Date | undefined,
 		size,
 		parts: geometries.length,
 		dimensions: scale && Object.fromEntries(dimensions),
-		geometries: geometries.map(rotator ?? (x => x)),
+		geometries: geometries,
+		rotator: rotator ?? (x => x),
 	}
 };
 
 const projects = [
-
 	{
 		title: 'Toilet paper holder',
 		id: 2,
@@ -142,7 +142,7 @@ const projects = [
    },
 
 	{
-		title: 'Adaptaboard',
+		title: 'Split keyboard',
 		id: 3,
 		iteration: {
 			major: 2,
@@ -190,7 +190,7 @@ const projects = [
 			amount: 1,
 			unit: 'mm'
 		},
-		active: 2,
+		active: 4,
 		date: '8 april 2022 21:36:42',
 		...parseJSONGeometryData(frameMount),
 		rotator: (geom: BufferGeometry) => geom
